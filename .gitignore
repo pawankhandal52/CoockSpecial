@@ -9,3 +9,11 @@
 /build
 /captures
 .externalNativeBuild
+libs/
+src/main/java/com/pawankhandal52/coockspecial/Adapter/
+src/main/java/com/pawankhandal52/coockspecial/Database/
+src/main/java/com/pawankhandal52/coockspecial/Networking/
+src/main/java/com/pawankhandal52/coockspecial/UI/Fragments/
+src/main/java/com/pawankhandal52/coockspecial/Utils/
+src/main/java/com/pawankhandal52/coockspecial/ViewModel/
+src/main/java/com/pawankhandal52/coockspecial/Widgets/

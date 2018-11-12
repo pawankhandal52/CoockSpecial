@@ -1,3 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CoockSpecial</string>
+	<string name="app_name">CoockSpecial</string>
+	<string name="splash_image_desc">Splash Screen Icon</string>
+	<string name="recipes_title">Recipes</string>
+	<string name="recipe_image_on_list">Recipe Image on List</string>
+	<string name="recipe_name">Recipe Name</string>
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="bad_mood">Bad Mood</string>
+	<string name="error_info_txt">Error info text</string>
+	<string name="seems_you_lose_the_internet_connection">Seems you lose the Internet Connection.</string>
+	<string name="something_went_wrong">Something went wrong…</string>
+	<string name="recycler_view_empty">No Recipe found!!!</string>
+	<string name="error_400">Bad Request</string>
+	<string name="error_401">Unauthorized Request</string>
+	<string name="error_403">Forbidden Request</string>
+	<string name="error_404">Not Found </string>
+	<string name="error_408">Timeout Request</string>
+	<string name="error_default">Something went wrong!!!</string>
+	<string name="title_recipe_list">Recipes</string>
+	<string name="title_recipe_detail">Recipe Detail</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="steps">Steps</string>
+    <string name="ingredients_list_key">ingredients_list</string>
+	<string name="step_list_key">step_list</string>
+	<string name="thumbnail_image">Thumbnail Image</string>
+	<string name="step_description">Step Description</string>
+	<string name="previous_btn">previous button</string>
+	<string name="next">Next</string>
+	<string name="video_">Video is Not availble for this step</string>
+	<string name="player_position_key">player_position</string>
+	<string name="player_state_key">player_state</string>
 </resources>

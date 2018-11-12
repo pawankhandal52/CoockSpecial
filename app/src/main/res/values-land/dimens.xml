@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recipes_card_height">300dp</dimen>
+    <dimen name="card_corner_radius">5dp</dimen>
+    <dimen name="card_content_padding">5dp</dimen>
+    <dimen name="layout_padding">16dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_300dp">300dp</dimen>
+    <dimen name="player_view_dimen">300dp</dimen>
+</resources>

@@ -3,5 +3,7 @@
     <color name="colorPrimary">#ffe229</color>
     <color name="colorPrimaryDark">#c8b000</color>
     <color name="colorAccent">#ffff64</color>
-    <color name="colorText">#000</color>
+    <color name="colorText">#000000</color>
+    <color name="colorBackgroundWhite">#ffffff</color>
+    <color name="colorCardBottom">#23939292</color>
 </resources>

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.pawankhandal52.coockspecial">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,12 +11,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.Activities.SplashActivity">
+        <activity
+            android:name=".UI.Activities.SplashActivity"
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.Activities.RecipeActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".UI.Activities.RecipeIngredientsActivity"
+            android:label="@string/title_recipe_list"
+            android:parentActivityName=".UI.Activities.RecipeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pawankhandal52.coockspecial.UI.Activities.RecipeActivity"/>
+        </activity>
+        <activity
+            android:name=".UI.Activities.RecipeIngredientsSinglePaneActivity"
+            android:label="@string/title_recipe_detail"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".UI.Activities.RecipeIngredientsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pawankhandal52.coockspecial.UI.Activities.RecipeIngredientsActivity"/>
         </activity>
     </application>
 

@@ -36,12 +36,30 @@
         <activity
             android:name=".UI.Activities.RecipeIngredientsSinglePaneActivity"
             android:label="@string/title_recipe_detail"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".UI.Activities.RecipeIngredientsActivity">
+            android:parentActivityName=".UI.Activities.RecipeIngredientsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pawankhandal52.coockspecial.UI.Activities.RecipeIngredientsActivity"/>
         </activity>
+
+        <receiver android:name=".UI.widgets.RecipeStepAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_step_app_widget_info"/>
+        </receiver>
+
+        <service
+            android:name=".services.UpdateWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false">
+        </service>
+        <service android:name=".UI.widgets.GridRemoteViewsService"
+                 />
     </application>
 
 </manifest>

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2018 The Android Nanodegree Project made under Udacity Nanodegree Course
+ * Author Pawan Kumar Sharma
+ * All Rights Reserved
+ */
 package com.pawankhandal52.coockspecial.UI.Activities;
 
 import android.content.Intent;
@@ -9,6 +14,9 @@ import com.pawankhandal52.coockspecial.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * This class is launcher activity
+ */
 public class SplashActivity extends AppCompatActivity {
     
     @Override

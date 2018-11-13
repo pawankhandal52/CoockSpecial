@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2018 The Android Nanodegree Project made under Udacity Nanodegree Course
+ * Author Pawan Kumar Sharma
+ * All Rights Reserved
+ */
 package com.pawankhandal52.coockspecial.ViewModel;
 
 import android.arch.lifecycle.ViewModel;

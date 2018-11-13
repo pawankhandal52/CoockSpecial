@@ -67,6 +67,7 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         
+        
         if (findViewById(R.id.recipe_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -93,6 +94,8 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         /*ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mobileArray);
         ListView listView = findViewById(R.id.ingredients_list_view);
         listView.setAdapter(arrayAdapter);*/
+    
+        
     }
     
     private void setupIngredientsRecyclerView(RecyclerView ingredientsRecyclerView) {
@@ -169,7 +172,8 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
                     savePositionOfStep(holder.getAdapterPosition());
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putParcelableArrayList(RecipeDetailFragment.ARG_ITEM_ID, new ArrayList<Parcelable>(mStepList1));
+                        arguments.putParcelableArrayList(RecipeDetailFragment.STEP_LIST, new ArrayList<Parcelable>(mStepList1));
+                        arguments.putParcelableArrayList(RecipeDetailFragment.INGREDIENT_LIST, new ArrayList<Parcelable>(mIngredientList));
                         arguments.putInt(RecipeDetailFragment.ARG_STEP_POSITION,holder.getAdapterPosition());
                         RecipeDetailFragment fragment = new RecipeDetailFragment();
                         fragment.setArguments(arguments);
@@ -179,7 +183,8 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, RecipeIngredientsSinglePaneActivity.class);
-                        intent.putParcelableArrayListExtra(RecipeDetailFragment.ARG_ITEM_ID,new ArrayList<Parcelable>(mStepList1));
+                        intent.putParcelableArrayListExtra(RecipeDetailFragment.STEP_LIST,new ArrayList<Parcelable>(mStepList1));
+                        intent.putParcelableArrayListExtra(RecipeDetailFragment.INGREDIENT_LIST, new ArrayList<Parcelable>(mIngredientList));
                         intent.putExtra(RecipeDetailFragment.ARG_STEP_POSITION,holder.getAdapterPosition());
                         context.startActivity(intent);
                     }
@@ -213,4 +218,6 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         editor.putInt("step_position", position);
         editor.apply();
     }
+    
+    
 }

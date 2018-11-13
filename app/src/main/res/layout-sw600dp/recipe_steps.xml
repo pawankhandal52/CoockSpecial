@@ -18,17 +18,6 @@
     
     -->
 
-<!--    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:tools="http://schemas.android.com/tools"
-                                            android:id="@+id/recipe_list"
-                                            android:name="com.pawankhandal52.coockspecial.UI.Activities.RecipeListFragment"
-                                            android:layout_width="@dimen/item_width"
-                                            android:layout_height="match_parent"
-                                            android:layout_marginLeft="16dp"
-                                            android:layout_marginRight="16dp"
-                                            app:layoutManager="LinearLayoutManager"
-                                            tools:context="com.pawankhandal52.coockspecial.UI.Activities.RecipeIngredientsActivity"
-                                            tools:listitem="@layout/recipe_steps_content"/>-->
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="0dp"

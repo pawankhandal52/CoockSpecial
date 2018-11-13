@@ -1,6 +1,12 @@
+/*
+ * Copyright (C) 2018 The Android Nanodegree Project made under Udacity Nanodegree Course
+ * Author Pawan Kumar Sharma
+ * All Rights Reserved
+ */
 package com.pawankhandal52.coockspecial.UI.Activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +27,9 @@ public class RecipeIngredientsSinglePaneActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        int oriention  = getResources().getConfiguration().orientation;
+        
+        Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         
         
@@ -29,8 +37,12 @@ public class RecipeIngredientsSinglePaneActivity extends AppCompatActivity {
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
+            if (oriention == Configuration.ORIENTATION_LANDSCAPE){
+                actionBar.hide();
+            }
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    
         
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -46,7 +58,8 @@ public class RecipeIngredientsSinglePaneActivity extends AppCompatActivity {
             // using a fragment transaction.
             Bundle arguments = new Bundle();
     
-            arguments.putParcelableArrayList(RecipeDetailFragment.ARG_ITEM_ID, getIntent().getParcelableArrayListExtra(RecipeDetailFragment.ARG_ITEM_ID));
+            arguments.putParcelableArrayList(RecipeDetailFragment.STEP_LIST, getIntent().getParcelableArrayListExtra(RecipeDetailFragment.STEP_LIST));
+            arguments.putParcelableArrayList(RecipeDetailFragment.INGREDIENT_LIST, getIntent().getParcelableArrayListExtra(RecipeDetailFragment.INGREDIENT_LIST));
             arguments.putInt(RecipeDetailFragment.ARG_STEP_POSITION,getIntent().getIntExtra(RecipeDetailFragment.ARG_STEP_POSITION,0));
             RecipeDetailFragment fragment = new RecipeDetailFragment();
             fragment.setArguments(arguments);

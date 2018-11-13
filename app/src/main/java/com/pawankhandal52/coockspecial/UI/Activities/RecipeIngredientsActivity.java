@@ -172,7 +172,8 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
                     savePositionOfStep(holder.getAdapterPosition());
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putParcelableArrayList(RecipeDetailFragment.ARG_ITEM_ID, new ArrayList<Parcelable>(mStepList1));
+                        arguments.putParcelableArrayList(RecipeDetailFragment.STEP_LIST, new ArrayList<Parcelable>(mStepList1));
+                        arguments.putParcelableArrayList(RecipeDetailFragment.INGREDIENT_LIST, new ArrayList<Parcelable>(mIngredientList));
                         arguments.putInt(RecipeDetailFragment.ARG_STEP_POSITION,holder.getAdapterPosition());
                         RecipeDetailFragment fragment = new RecipeDetailFragment();
                         fragment.setArguments(arguments);
@@ -182,7 +183,8 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, RecipeIngredientsSinglePaneActivity.class);
-                        intent.putParcelableArrayListExtra(RecipeDetailFragment.ARG_ITEM_ID,new ArrayList<Parcelable>(mStepList1));
+                        intent.putParcelableArrayListExtra(RecipeDetailFragment.STEP_LIST,new ArrayList<Parcelable>(mStepList1));
+                        intent.putParcelableArrayListExtra(RecipeDetailFragment.INGREDIENT_LIST, new ArrayList<Parcelable>(mIngredientList));
                         intent.putExtra(RecipeDetailFragment.ARG_STEP_POSITION,holder.getAdapterPosition());
                         context.startActivity(intent);
                     }

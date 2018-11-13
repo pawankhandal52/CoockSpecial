@@ -6,4 +6,5 @@
     <color name="colorText">#000000</color>
     <color name="colorBackgroundWhite">#ffffff</color>
     <color name="colorCardBottom">#23939292</color>
+    <color name="colorWidgetBg">#1d76cf</color>
 </resources>

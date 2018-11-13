@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2018 The Android Nanodegree Project made under Udacity Nanodegree Course
+ * Author Pawan Kumar Sharma
+ * All Rights Reserved
+ */
 package com.pawankhandal52.coockspecial.UI.Activities;
 
 import android.content.Context;
@@ -24,9 +29,12 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.pawankhandal52.coockspecial.Models.Ingredient;
 import com.pawankhandal52.coockspecial.Models.Step;
 import com.pawankhandal52.coockspecial.R;
+import com.pawankhandal52.coockspecial.services.UpdateWidgetService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,7 +52,9 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_ID = "step_list";
+    public static final String STEP_LIST = "step_list";
+    public static final String INGREDIENT_LIST = "ingredient_list";
+    
     public static final String ARG_STEP_POSITION = "step_postion";
     
     
@@ -75,11 +85,14 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     private Step step;
     private static int sStepPostion;
     private List<Step> recipeList;
+    private List<Ingredient> mIngredientList;
     private SimpleExoPlayer mSimpleExoPlayer;
     private Context mContext;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    
         
         
         
@@ -90,14 +103,16 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recipe_detail, container, false);
         ButterKnife.bind(this,rootView);
+        
         mContext = getActivity();
         
-        if (Objects.requireNonNull(getArguments()).containsKey(ARG_ITEM_ID)) {
+        if (Objects.requireNonNull(getArguments()).containsKey(STEP_LIST)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
         
-            recipeList = getArguments().getParcelableArrayList(ARG_ITEM_ID);
+            recipeList = getArguments().getParcelableArrayList(STEP_LIST);
+            mIngredientList = getArguments().getParcelableArrayList(INGREDIENT_LIST);
             sStepPostion = getStepPostion();
             //Log.e(TAG, "onCreate: Recipelist"+recipeList );
             /*if (recipeList==null){
@@ -110,6 +125,8 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
             }else{
                 Log.e(TAG, "onCreate: step is null");
             }*/
+    
+            
         }
         // Show the dummy content as text in a TextView.
         if (step!=null){
@@ -142,6 +159,12 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         
         mPreviousStepImageButton.setOnClickListener(this);
         mNextStepImageButton.setOnClickListener(this);
+    
+        ArrayList<String>  mStringArrayList = new ArrayList<>();
+        for (int i = 0; i < mIngredientList.size(); i++) {
+            mStringArrayList.add(mIngredientList.get(i).getIngredient());
+        }
+        UpdateWidgetService.startActionUpdateRecipeIngredients(mContext, mStringArrayList);
         return rootView;
     }
     

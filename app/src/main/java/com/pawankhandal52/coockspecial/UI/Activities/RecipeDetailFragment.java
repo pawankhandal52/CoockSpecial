@@ -20,6 +20,7 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -79,7 +80,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    
+        
         
         
     }
@@ -90,7 +91,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         View rootView = inflater.inflate(R.layout.recipe_detail, container, false);
         ButterKnife.bind(this,rootView);
         mContext = getActivity();
-    
+        
         if (Objects.requireNonNull(getArguments()).containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
@@ -125,7 +126,12 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         }else{
             mPreviousStepImageButton.setVisibility(View.VISIBLE);
         }
+    
+        if(rootView.findViewWithTag("land_mode")!=null){
         
+        }
+        
+        mPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
         initExoPlayer();
     
         if (savedInstanceState != null && mSimpleExoPlayer != null) {
@@ -221,5 +227,8 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         SharedPreferences shared = Objects.requireNonNull(getActivity()).getApplicationContext().getSharedPreferences("Recipe_Step", Context.MODE_PRIVATE);
         return shared.getInt("step_position",0);
     }
+    
+    
+    
     
 }

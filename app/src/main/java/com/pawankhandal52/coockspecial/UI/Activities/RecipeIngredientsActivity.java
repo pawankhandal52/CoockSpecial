@@ -67,6 +67,7 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         
+        
         if (findViewById(R.id.recipe_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -93,6 +94,8 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         /*ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mobileArray);
         ListView listView = findViewById(R.id.ingredients_list_view);
         listView.setAdapter(arrayAdapter);*/
+    
+        
     }
     
     private void setupIngredientsRecyclerView(RecyclerView ingredientsRecyclerView) {
@@ -213,4 +216,6 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         editor.putInt("step_position", position);
         editor.apply();
     }
+    
+    
 }

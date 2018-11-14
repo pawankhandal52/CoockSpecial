@@ -7,4 +7,5 @@
     <color name="colorBackgroundWhite">#ffffff</color>
     <color name="colorCardBottom">#23939292</color>
     <color name="colorWidgetBg">#1d76cf</color>
+    <color name="colorWidget">#f2d707</color>
 </resources>

@@ -43,23 +43,17 @@
                 android:value="com.pawankhandal52.coockspecial.UI.Activities.RecipeIngredientsActivity"/>
         </activity>
 
-        <receiver android:name=".UI.widgets.RecipeStepAppWidget">
+        <receiver android:name=".UI.widgets.RecipeIngredientAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/recipe_step_app_widget_info"/>
+                android:resource="@xml/recipe_ingredient_app_widget_info"/>
         </receiver>
-
-        <service
-            android:name=".services.UpdateWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"
-            android:exported="false">
-        </service>
-        <service android:name=".UI.widgets.GridRemoteViewsService"
-                 />
+        <service android:name=".services.IngredientsWidgetService"
+                 android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

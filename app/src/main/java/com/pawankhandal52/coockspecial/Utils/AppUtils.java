@@ -11,19 +11,17 @@ public class AppUtils {
         
         StringBuilder sb = new StringBuilder();
         String delim = "";
-        for (String s : list)
-        {
+        for (String s : list) {
             sb.append(delim);
-            sb.append(s);;
+            sb.append(s);
             delim = ",";
         }
         return sb.toString();
     }
     
     public static ArrayList<String> convertToArray(String string) {
-        
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(string.split(",")));
-        return list;
+    
+        return new ArrayList<String>(Arrays.asList(string.split(",")));
     }
     
 }

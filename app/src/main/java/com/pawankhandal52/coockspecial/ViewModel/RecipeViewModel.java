@@ -20,28 +20,28 @@ import retrofit2.Response;
  * This is view model for a Recipe and it save the state of ui and prevent to recall network operation
  */
 public class RecipeViewModel extends ViewModel {
-    private LiveData<Response<List<Recipe>>> mResponseLiveData;
     private final static String TAG = RecipeViewModel.class.getSimpleName();
+    private LiveData<Response<List<Recipe>>> mResponseLiveData;
     
     public RecipeViewModel() {
-        if (mResponseLiveData != null){
-            Log.e(TAG, "RecipeViewModel: Data"+mResponseLiveData );
+        if (mResponseLiveData != null) {
+            Log.e(TAG, "RecipeViewModel: Data" + mResponseLiveData);
             return;
         }
         
         loadRecipeFromNetwork();
     }
     
-    
-    private void loadRecipeFromNetwork(){
+    private void loadRecipeFromNetwork() {
         mResponseLiveData = RecipesRepository.getInstance().getRecipesFromServer();
     }
     
     /**
      * This function is return the response from Retrofit api
+     *
      * @return Livedata
      */
-    public LiveData<Response<List<Recipe>>> getMoviesResponseLiveData(){
+    public LiveData<Response<List<Recipe>>> getMoviesResponseLiveData() {
         return mResponseLiveData;
     }
 }

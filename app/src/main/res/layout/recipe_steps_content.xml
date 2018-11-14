@@ -4,12 +4,12 @@
                                     xmlns:tools="http://schemas.android.com/tools"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:elevation="@dimen/card_recipe_elevation"
                                     android:orientation="vertical"
                                     android:padding="@dimen/dimen_16dp"
+                                    app:cardCornerRadius="@dimen/card_corner_radius"
                                     app:cardPreventCornerOverlap="true"
-                                    app:cardUseCompatPadding="true"
-    android:elevation="@dimen/card_recipe_elevation"
-    app:cardCornerRadius="@dimen/card_corner_radius">
+                                    app:cardUseCompatPadding="true">
 
     <TextView
         android:id="@+id/steps_list_text_view"

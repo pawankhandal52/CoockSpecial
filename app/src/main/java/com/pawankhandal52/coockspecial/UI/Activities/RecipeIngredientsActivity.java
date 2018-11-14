@@ -42,14 +42,16 @@ import butterknife.ButterKnife;
  * item details side-by-side using two vertical panes.
  */
 public class RecipeIngredientsActivity extends AppCompatActivity {
-    
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    private static List<Ingredient> mIngredientList;
+    private static List<Step> mStepList;
+    private String mRecipeName;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
-    private static List<Ingredient> mIngredientList;
-    private static List<Step> mStepList;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,6 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
         
         
         // Show the Up button in the action bar.
@@ -66,7 +67,6 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        
         
         if (findViewById(R.id.recipe_detail_container) != null) {
             // The detail container view will be present only in the
@@ -76,12 +76,15 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
             mTwoPane = true;
         }
         
-        
         Intent intent = getIntent();
-        if (intent.hasExtra(getString(R.string.ingredients_list_key))){
+        if(intent.hasExtra(getString(R.string.recipe_name_key))){
+            mRecipeName = intent.getStringExtra(getString(R.string.recipe_name_key));
+            getSupportActionBar().setTitle(intent.getStringExtra(getString(R.string.recipe_name_key)));
+        }
+        if (intent.hasExtra(getString(R.string.ingredients_list_key))) {
             mIngredientList = intent.getParcelableArrayListExtra(getString(R.string.ingredients_list_key));
         }
-        if (intent.hasExtra(getString(R.string.step_list_key))){
+        if (intent.hasExtra(getString(R.string.step_list_key))) {
             mStepList = intent.getParcelableArrayListExtra(getString(R.string.step_list_key));
         }
         View recyclerView = findViewById(R.id.recipe_list);
@@ -89,19 +92,17 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         setupStepRecyclerView((RecyclerView) recyclerView);
         
         View ingredientsRecyclerView = findViewById(R.id.ingredients_recycler_view);
-        assert ingredientsRecyclerView!=null;
+        assert ingredientsRecyclerView != null;
         setupIngredientsRecyclerView((RecyclerView) ingredientsRecyclerView);
         /*ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,mobileArray);
         ListView listView = findViewById(R.id.ingredients_list_view);
         listView.setAdapter(arrayAdapter);*/
-    
         
     }
     
     private void setupIngredientsRecyclerView(RecyclerView ingredientsRecyclerView) {
         
-        
-        ingredientsRecyclerView.setAdapter(new IngredientsAdapter(mIngredientList,this));
+        ingredientsRecyclerView.setAdapter(new IngredientsAdapter(mIngredientList, this));
     }
     
     @Override
@@ -126,19 +127,21 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, mStepList, mTwoPane));
     }
     
-    public  class SimpleItemRecyclerViewAdapter
+    private void savePositionOfStep(int position) {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Recipe_Step", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        // String json=recipies.get(position).toString();
+        editor.putInt(getString(R.string.step_position), position);
+        editor.apply();
+    }
+    
+    public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
         
         private final RecipeIngredientsActivity mParentActivity;
         private final List<Step> mStepList1;
         private final boolean mTwoPane;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            
-            
-            }
-        };
+        
         
         SimpleItemRecyclerViewAdapter(RecipeIngredientsActivity parent,
                                       List<Step> items,
@@ -159,11 +162,11 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             Step step = mStepList1.get(position);
-            if (step==null){
+            if (step == null) {
                 return;
             }
-            if (step.getShortDescription()!=null){
-                holder.mStepListTextView.setText(String.format("%d: %s", position+1, step.getShortDescription()));
+            if (step.getShortDescription() != null) {
+                holder.mStepListTextView.setText(String.format("%s: %s", String.valueOf(position) + 1, step.getShortDescription()));
             }
             
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -172,9 +175,10 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
                     savePositionOfStep(holder.getAdapterPosition());
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
+                        arguments.putString(getString(R.string.recipe_name_key),mRecipeName);
                         arguments.putParcelableArrayList(RecipeDetailFragment.STEP_LIST, new ArrayList<Parcelable>(mStepList1));
                         arguments.putParcelableArrayList(RecipeDetailFragment.INGREDIENT_LIST, new ArrayList<Parcelable>(mIngredientList));
-                        arguments.putInt(RecipeDetailFragment.ARG_STEP_POSITION,holder.getAdapterPosition());
+                        arguments.putInt(RecipeDetailFragment.ARG_STEP_POSITION, holder.getAdapterPosition());
                         RecipeDetailFragment fragment = new RecipeDetailFragment();
                         fragment.setArguments(arguments);
                         mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -183,9 +187,10 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, RecipeIngredientsSinglePaneActivity.class);
-                        intent.putParcelableArrayListExtra(RecipeDetailFragment.STEP_LIST,new ArrayList<Parcelable>(mStepList1));
+                        intent.putExtra(getString(R.string.recipe_name_key),mRecipeName);
+                        intent.putParcelableArrayListExtra(RecipeDetailFragment.STEP_LIST, new ArrayList<Parcelable>(mStepList1));
                         intent.putParcelableArrayListExtra(RecipeDetailFragment.INGREDIENT_LIST, new ArrayList<Parcelable>(mIngredientList));
-                        intent.putExtra(RecipeDetailFragment.ARG_STEP_POSITION,holder.getAdapterPosition());
+                        intent.putExtra(RecipeDetailFragment.ARG_STEP_POSITION, holder.getAdapterPosition());
                         context.startActivity(intent);
                     }
                 }
@@ -195,7 +200,7 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
         
         @Override
         public int getItemCount() {
-            if(mStepList1 == null) return 0;
+            if (mStepList1 == null) return 0;
             
             return mStepList1.size();
         }
@@ -206,18 +211,9 @@ public class RecipeIngredientsActivity extends AppCompatActivity {
             
             ViewHolder(View view) {
                 super(view);
-                ButterKnife.bind(this,view);
+                ButterKnife.bind(this, view);
             }
         }
     }
-    
-    private void savePositionOfStep(int position){
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Recipe_Step", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        // String json=recipies.get(position).toString();
-        editor.putInt("step_position", position);
-        editor.apply();
-    }
-    
     
 }

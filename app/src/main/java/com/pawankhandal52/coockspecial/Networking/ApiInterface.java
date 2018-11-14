@@ -15,7 +15,7 @@ import retrofit2.http.GET;
 /**
  * This interface class have a all url to get the data from web
  */
-public interface ApiInterface {
+interface ApiInterface {
     @GET("baking.json")
     Call<List<Recipe>> getRecipes();
 }

@@ -16,9 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     private static Retrofit sRetrofit;
     
-    
-    public static Retrofit getRetrofitClient(){
-        if (sRetrofit == null){
+    public static Retrofit getRetrofitClient() {
+        if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(AppConstants.BASE_URL)

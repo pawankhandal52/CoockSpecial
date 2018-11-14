@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundWhite"
     tools:context=".UI.Activities.RecipeActivity">
 
     <TextView
@@ -25,7 +24,6 @@
         tools:text="@string/recipes_title"/>
 
     <FrameLayout
-        android:id="@+id/recipe_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_8dp"
@@ -54,13 +52,13 @@
 
 
             <ImageView
+                android:id="@+id/no_data_imageview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_mood_bad_black_48dp"
+                android:contentDescription="@string/bad_mood"
                 android:scaleType="fitXY"
-                android:id="@+id/no_data_imageview"
-                android:contentDescription="@string/bad_mood"/>
+                android:src="@drawable/ic_mood_bad_black_48dp"/>
 
             <TextView
                 android:id="@+id/error_textview"
@@ -68,8 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/no_data_imageview"
                 android:layout_centerHorizontal="true"
-                android:textAlignment="center"
                 android:gravity="center_horizontal"
+                android:textAlignment="center"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/textsize_18sp"
                 tools:text="@string/error_info_txt"/>

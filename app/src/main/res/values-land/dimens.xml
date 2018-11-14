@@ -6,6 +6,5 @@
     <dimen name="layout_padding">16dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="dimen_16dp">16dp</dimen>
-    <dimen name="dimen_300dp">300dp</dimen>
     <dimen name="player_view_dimen">300dp</dimen>
 </resources>

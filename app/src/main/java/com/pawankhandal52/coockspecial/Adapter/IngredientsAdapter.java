@@ -28,11 +28,10 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     
     private final String TAG = RecipesListAdapter.class.getSimpleName();
     private List<Ingredient> mIngredientList;
-    private Context mContext;
     
     public IngredientsAdapter(List<Ingredient> ingredientList, Context context) {
         mIngredientList = ingredientList;
-        mContext = context;
+        Context context1 = context;
     }
     
     @NonNull
@@ -48,7 +47,9 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         Ingredient ingredient = mIngredientList.get(i);
         if (ingredient.getQuantity()!=null&& ingredient.getMeasure()!=null&&ingredient.getIngredient()!=null){
             Double quantity = ingredient.getQuantity();
-            ingredientsViewHolder.mIngredientsItemTextView.setText(String.format("%d %s %s %s", i + 1, String.valueOf(quantity), ingredient.getMeasure(), ingredient.getIngredient()));
+            ingredientsViewHolder.mIngredientsItemTextView.setText(
+                    String.format("%s %s %s %s", String.valueOf(i) + 1, String.valueOf(quantity),
+                            ingredient.getMeasure(), ingredient.getIngredient()));
         }
     }
     
@@ -59,10 +60,10 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         return mIngredientList.size();
     }
     
-    public class IngredientsViewHolder extends RecyclerView.ViewHolder{
+    class IngredientsViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.ingredients_item_textview)
         TextView mIngredientsItemTextView;
-        public IngredientsViewHolder(@NonNull View itemView) {
+        IngredientsViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }

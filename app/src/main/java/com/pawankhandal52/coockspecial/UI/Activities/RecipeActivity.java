@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pawankhandal52.coockspecial.Adapter.RecipesListAdapter;
 import com.pawankhandal52.coockspecial.Models.Recipe;
@@ -40,102 +39,101 @@ import butterknife.ButterKnife;
  * This is the main activity of this app which shows the recipe list.
  */
 public class RecipeActivity extends AppCompatActivity implements RecipesListAdapter.RecipesItemClickListener {
+    private final String TAG = RecipeActivity.class.getSimpleName();
     @BindView(R.id.recipes_recyclerview)
     RecyclerView mRecipeRecyclerView;
-    
     @BindView(R.id.empty_recipe_info_rl)
     RelativeLayout mEmptyRelativeLayout;
-    
     @BindView(R.id.error_textview)
     TextView mErrorTextView;
-    
     @BindView(R.id.recipe_progressbar)
     ProgressBar mProgressBar;
-    
-    private final String TAG = RecipeActivity.class.getSimpleName();
+    private List<Recipe> mRecipeList;
     private RecipesListAdapter mRecipesListAdapter;
-    private RecipeViewModel recipeViewModel;
-    
-    List<Recipe> recipeList;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
-        mRecipesListAdapter = new RecipesListAdapter(null,this,this);
+        
+        
+        // Get the IdlingResource instance
+        mRecipesListAdapter = new RecipesListAdapter(null, this, this);
         
         //This is used to make the activity in two way
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-        float screenWidth = displayMetrics.widthPixels/displayMetrics.density;
-        if (screenWidth>=600)
-            mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        float screenWidth = displayMetrics.widthPixels / displayMetrics.density;
+        if (screenWidth >= 600)
+            mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         else
-            mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
-    
-    
+            mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        
         mRecipeRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecipeRecyclerView.setHasFixedSize(true);
         mRecipeRecyclerView.setAdapter(mRecipesListAdapter);
-    
+        
         hideEmptyView();
         loadRecipes();
+        
     }
+
     
-    private void showEmptyView(){
+    private void showEmptyView() {
         mEmptyRelativeLayout.setVisibility(View.VISIBLE);
     }
     
-    private void hideEmptyView(){
+    private void hideEmptyView() {
         mEmptyRelativeLayout.setVisibility(View.GONE);
     }
+    
     @Override
     public void onRecipeItemClick(int position) {
-        Toast.makeText(this, "Click postion "+position, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,RecipeIngredientsActivity.class);
+        Intent intent = new Intent(this, RecipeIngredientsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putParcelableArrayListExtra(getString(R.string.ingredients_list_key),new ArrayList<Parcelable>(recipeList.get(position).getIngredients()));
-        intent.putParcelableArrayListExtra(getString(R.string.step_list_key),new ArrayList<Parcelable>(recipeList.get(position).getSteps()));
-        RecipeSharedPrefrance.saveSelectedRecipe(getApplicationContext(),recipeList.get(position));
+        intent.putExtra(getString(R.string.recipe_name_key),mRecipeList.get(position).getName());
+        intent.putParcelableArrayListExtra(getString(R.string.ingredients_list_key), new ArrayList<Parcelable>(mRecipeList.get(position).getIngredients()));
+        intent.putParcelableArrayListExtra(getString(R.string.step_list_key), new ArrayList<Parcelable>(mRecipeList.get(position).getSteps()));
+        RecipeSharedPrefrance.saveSelectedRecipe(getApplicationContext(), mRecipeList.get(position));
         startActivity(intent);
-    
+        
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeIngredientAppWidget.class));
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list);
         RecipeIngredientAppWidget.updateIngredientWidgets(this, appWidgetManager, appWidgetIds);
     }
     
-    private void loadRecipes(){
-         //RecipeViewModelFactory recipeViewModelFactory = new RecipeViewModelFactory();
-         recipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
-         
+    private void loadRecipes() {
+        
+        RecipeViewModel recipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
+        
         recipeViewModel.getMoviesResponseLiveData().observe(this, listResponse->{
             mProgressBar.setVisibility(View.GONE);
-            Log.e(TAG, "onChanged: load recipe" );
+            Log.e(TAG, "onChanged: load recipe");
             
-            if (listResponse == null){
+            if (listResponse == null) {
                 showEmptyView();
                 mErrorTextView.setText(getString(R.string.seems_you_lose_the_internet_connection));
                 return;
             }
             
-            if (listResponse.isSuccessful()){
-                     recipeList = listResponse.body();
-                    if (recipeList== null){
-                        showEmptyView();
-                        mErrorTextView.setText(getString(R.string.something_went_wrong));
-                        return;
-                    }
-                    
-                    if (recipeList.size() == 0){
-                        showEmptyView();
-                        mErrorTextView.setText(getString(R.string.recycler_view_empty));
-                        return;
-                    }
-                    mRecipesListAdapter.swapList(recipeList);
-                    
-                    
-            }else{
+            if (listResponse.isSuccessful()) {
+                mRecipeList = listResponse.body();
+                if (mRecipeList == null) {
+                    showEmptyView();
+                    mErrorTextView.setText(getString(R.string.something_went_wrong));
+                    return;
+                }
+                
+                if (mRecipeList.size() == 0) {
+                    showEmptyView();
+                    mErrorTextView.setText(getString(R.string.recycler_view_empty));
+                    return;
+                }
+                
+                mRecipesListAdapter.swapList(mRecipeList);
+                
+            } else {
                 mProgressBar.setVisibility(View.GONE);
                 switch (listResponse.code()) {
                     case 400:
@@ -165,5 +163,6 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
                 }
             }
         });
+        
     }
 }

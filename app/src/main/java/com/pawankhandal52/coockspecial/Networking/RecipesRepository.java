@@ -23,38 +23,38 @@ import retrofit2.Response;
  * This class is used to do all the data operation throughout the application
  */
 public class RecipesRepository {
+    private static final String TAG = RecipesRepository.class.getSimpleName();
     private static RecipesRepository sRecipesRepository;
-    private static final String  TAG = RecipesRepository.class.getSimpleName();
     
     /**
      * This method is used to create a instance of this class if its null
+     *
      * @return instance of this class
      */
-    public static RecipesRepository getInstance(){
-        if (sRecipesRepository == null){
+    public static RecipesRepository getInstance() {
+        if (sRecipesRepository == null) {
             sRecipesRepository = new RecipesRepository();
         }
         return sRecipesRepository;
     }
     
     /**
-     *
      * @return Recipes response from server
      */
-    public LiveData<Response<List<Recipe>>> getRecipesFromServer(){
+    public LiveData<Response<List<Recipe>>> getRecipesFromServer() {
         MutableLiveData<Response<List<Recipe>>> recipeResponseMutableLiveData = new MutableLiveData<>();
         
         Call<List<Recipe>> recipeCall = callRecipeApi();
         recipeCall.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
-                Log.d(TAG, "onResponse: getRecipeFromServer "+response);
+                Log.d(TAG, "onResponse: getRecipeFromServer " + response);
                 recipeResponseMutableLiveData.setValue(response);
             }
-    
+            
             @Override
             public void onFailure(@NonNull Call<List<Recipe>> call, @NonNull Throwable t) {
-                Log.e(TAG, "onFailure: getRecipeFromServer",t.getCause() );
+                Log.e(TAG, "onFailure: getRecipeFromServer", t.getCause());
                 recipeResponseMutableLiveData.setValue(null);
             }
         });
@@ -63,7 +63,6 @@ public class RecipesRepository {
     }
     
     /**
-     *
      * @return instance of Retrofit Client with address.
      */
     private Call<List<Recipe>> callRecipeApi() {

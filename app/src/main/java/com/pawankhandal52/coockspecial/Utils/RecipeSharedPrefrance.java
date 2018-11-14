@@ -18,14 +18,14 @@ public class RecipeSharedPrefrance {
     public static final String RECIPE_APP_PREFERENCE = "recipe_app_preference";
     public static final String SELECTED_RECIPE_KEY = "seleted_recipe";
     
-    public static Recipe getSelectedRecipeFromPreference(Context context){
+    public static Recipe getSelectedRecipeFromPreference(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(RECIPE_APP_PREFERENCE, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String selectedRecipe = sharedPreferences.getString(SELECTED_RECIPE_KEY, "");
-        return gson.fromJson(selectedRecipe,Recipe.class);
+        return gson.fromJson(selectedRecipe, Recipe.class);
     }
     
-    public static void saveSelectedRecipe(Context context,Recipe recipe){
+    public static void saveSelectedRecipe(Context context, Recipe recipe) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(RECIPE_APP_PREFERENCE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();

@@ -4,7 +4,6 @@
     <string name="splash_image_desc">Splash Screen Icon</string>
     <string name="recipes_title">Recipes</string>
     <string name="recipe_image_on_list">Recipe Image on List</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bad_mood">Bad Mood</string>
     <string name="error_info_txt">Error info text</string>
     <string name="seems_you_lose_the_internet_connection">Seems you lose the Internet Connection.</string>
@@ -26,11 +25,12 @@
     <string name="step_description">Step Description</string>
     <string name="previous_btn">previous button</string>
     <string name="next">Next</string>
-    <string name="video_">Video is Not availble for this step</string>
+    <string name="video_">Video is Not available for this step</string>
     <string name="player_position_key">player_position</string>
     <string name="player_state_key">player_state</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="widget_image">Widget Image</string>
     <string name="recipe_name">Recipe Name</string>
+    <string name="my_player">My_Player</string>
+    <string name="recipe_step">Recipe_Step</string>
+    <string name="step_position">step_position</string>
+    <string name="recipe_name_key">recipe_name_key</string>
 </resources>

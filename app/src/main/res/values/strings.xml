@@ -4,7 +4,6 @@
     <string name="splash_image_desc">Splash Screen Icon</string>
     <string name="recipes_title">Recipes</string>
     <string name="recipe_image_on_list">Recipe Image on List</string>
-    <string name="recipe_name">Recipe Name</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bad_mood">Bad Mood</string>
     <string name="error_info_txt">Error info text</string>
@@ -33,4 +32,5 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="widget_image">Widget Image</string>
+    <string name="recipe_name">Recipe Name</string>
 </resources>

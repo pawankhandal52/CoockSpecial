@@ -5,7 +5,9 @@
  */
 package com.pawankhandal52.coockspecial.UI.Activities;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -24,6 +26,8 @@ import android.widget.Toast;
 import com.pawankhandal52.coockspecial.Adapter.RecipesListAdapter;
 import com.pawankhandal52.coockspecial.Models.Recipe;
 import com.pawankhandal52.coockspecial.R;
+import com.pawankhandal52.coockspecial.UI.widgets.RecipeIngredientAppWidget;
+import com.pawankhandal52.coockspecial.Utils.RecipeSharedPrefrance;
 import com.pawankhandal52.coockspecial.ViewModel.RecipeViewModel;
 
 import java.util.ArrayList;
@@ -89,10 +93,16 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
     public void onRecipeItemClick(int position) {
         Toast.makeText(this, "Click postion "+position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,RecipeIngredientsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putParcelableArrayListExtra(getString(R.string.ingredients_list_key),new ArrayList<Parcelable>(recipeList.get(position).getIngredients()));
         intent.putParcelableArrayListExtra(getString(R.string.step_list_key),new ArrayList<Parcelable>(recipeList.get(position).getSteps()));
-    
+        RecipeSharedPrefrance.saveSelectedRecipe(getApplicationContext(),recipeList.get(position));
         startActivity(intent);
+    
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeIngredientAppWidget.class));
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredient_widget_list);
+        RecipeIngredientAppWidget.updateIngredientWidgets(this, appWidgetManager, appWidgetIds);
     }
     
     private void loadRecipes(){

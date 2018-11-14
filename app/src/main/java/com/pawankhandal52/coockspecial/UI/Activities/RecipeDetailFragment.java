@@ -29,12 +29,9 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.pawankhandal52.coockspecial.Models.Ingredient;
 import com.pawankhandal52.coockspecial.Models.Step;
 import com.pawankhandal52.coockspecial.R;
-import com.pawankhandal52.coockspecial.services.UpdateWidgetService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -85,7 +82,6 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     private Step step;
     private static int sStepPostion;
     private List<Step> recipeList;
-    private List<Ingredient> mIngredientList;
     private SimpleExoPlayer mSimpleExoPlayer;
     private Context mContext;
     
@@ -112,19 +108,9 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
             // to load content from a content provider.
         
             recipeList = getArguments().getParcelableArrayList(STEP_LIST);
-            mIngredientList = getArguments().getParcelableArrayList(INGREDIENT_LIST);
             sStepPostion = getStepPostion();
-            //Log.e(TAG, "onCreate: Recipelist"+recipeList );
-            /*if (recipeList==null){
-                return;
-            }*/
-            //Log.e(TAG, "onCreateView: postion"+sStepPostion );
             step =  recipeList.get(sStepPostion);
-            /*if (step != null) {
-                Log.e(TAG, "get Arguments data "+step.getDescription() );
-            }else{
-                Log.e(TAG, "onCreate: step is null");
-            }*/
+            
     
             
         }
@@ -159,12 +145,6 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         
         mPreviousStepImageButton.setOnClickListener(this);
         mNextStepImageButton.setOnClickListener(this);
-    
-        ArrayList<String>  mStringArrayList = new ArrayList<>();
-        for (int i = 0; i < mIngredientList.size(); i++) {
-            mStringArrayList.add(mIngredientList.get(i).getIngredient());
-        }
-        UpdateWidgetService.startActionUpdateRecipeIngredients(mContext, mStringArrayList);
         return rootView;
     }
     
@@ -241,7 +221,6 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     private void savePositionOfStep(){
         SharedPreferences sharedPreferences = Objects.requireNonNull(getActivity()).getApplicationContext().getSharedPreferences("Recipe_Step", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        // String json=recipies.get(position).toString();
         editor.putInt("step_position", sStepPostion);
         editor.apply();
     }
@@ -251,7 +230,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         return shared.getInt("step_position",0);
     }
     
-    
+   
     
     
 }

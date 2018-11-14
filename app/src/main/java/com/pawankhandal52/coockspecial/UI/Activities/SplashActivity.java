@@ -31,7 +31,9 @@ public class SplashActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this,RecipeActivity.class));
+                Intent intnet = new Intent(SplashActivity.this,RecipeActivity.class);
+                intnet.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intnet);
             }
         }, 2000);
     }

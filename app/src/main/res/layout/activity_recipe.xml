@@ -66,11 +66,13 @@
                 android:id="@+id/error_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text= "@string/error_info_txt"
-                android:textColor="@color/colorText"
                 android:layout_below="@+id/no_data_imageview"
                 android:layout_centerHorizontal="true"
-                android:textSize="@dimen/textsize_18sp"/>
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/textsize_18sp"
+                tools:text="@string/error_info_txt"/>
 
 
         </RelativeLayout>

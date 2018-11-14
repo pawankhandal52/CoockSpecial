@@ -48,7 +48,9 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         Ingredient ingredient = mIngredientList.get(i);
         if (ingredient.getQuantity()!=null&& ingredient.getMeasure()!=null&&ingredient.getIngredient()!=null){
             Double quantity = ingredient.getQuantity();
-            ingredientsViewHolder.mIngredientsItemTextView.setText(String.format("%d %s %s %s", i + 1, String.valueOf(quantity), ingredient.getMeasure(), ingredient.getIngredient()));
+            ingredientsViewHolder.mIngredientsItemTextView.setText(
+                    String.format("%d %s %s %s", i + 1, String.valueOf(quantity),
+                            ingredient.getMeasure(), ingredient.getIngredient()));
         }
     }
     

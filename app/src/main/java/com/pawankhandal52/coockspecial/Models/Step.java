@@ -1,4 +1,8 @@
-
+/*
+ * Copyright (C) 2018 The Android Nanodegree Project made under Udacity Nanodegree Course
+ * Author Pawan Kumar Sharma
+ * All Rights Reserved
+ */
 package com.pawankhandal52.coockspecial.Models;
 
 import android.os.Parcel;
@@ -7,6 +11,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * POJO Step
+ */
 public class Step implements Parcelable
 {
 

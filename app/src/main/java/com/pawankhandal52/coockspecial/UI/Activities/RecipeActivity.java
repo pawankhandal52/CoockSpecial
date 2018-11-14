@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pawankhandal52.coockspecial.Adapter.RecipesListAdapter;
 import com.pawankhandal52.coockspecial.Models.Recipe;
@@ -56,13 +55,16 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
     private RecipesListAdapter mRecipesListAdapter;
     private RecipeViewModel recipeViewModel;
     
+    
     List<Recipe> recipeList;
+    
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         ButterKnife.bind(this);
+        // Get the IdlingResource instance
         mRecipesListAdapter = new RecipesListAdapter(null,this,this);
         
         //This is used to make the activity in two way
@@ -80,6 +82,15 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
     
         hideEmptyView();
         loadRecipes();
+        
+    
+        
+    }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        
     }
     
     private void showEmptyView(){
@@ -91,7 +102,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
     }
     @Override
     public void onRecipeItemClick(int position) {
-        Toast.makeText(this, "Click postion "+position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Click postion "+position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,RecipeIngredientsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putParcelableArrayListExtra(getString(R.string.ingredients_list_key),new ArrayList<Parcelable>(recipeList.get(position).getIngredients()));
@@ -106,6 +117,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
     }
     
     private void loadRecipes(){
+        
          //RecipeViewModelFactory recipeViewModelFactory = new RecipeViewModelFactory();
          recipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
          
@@ -132,8 +144,11 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
                         mErrorTextView.setText(getString(R.string.recycler_view_empty));
                         return;
                     }
-                    mRecipesListAdapter.swapList(recipeList);
                     
+                
+                
+    
+                mRecipesListAdapter.swapList(recipeList);
                     
             }else{
                 mProgressBar.setVisibility(View.GONE);
@@ -165,5 +180,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipesListAdap
                 }
             }
         });
+    
+        
     }
 }
